@@ -1,0 +1,17 @@
+from math import ceil
+
+
+def is_prime(num):
+    if num in [0, 1]:
+        return False
+    else:
+        for i in range(2, ceil(num ** (1 / 2) + 1)):
+            if num % i == 0:
+                return False
+        return True
+
+
+nums = [10, 22, 9, 33, 21, 50, 41, 7, 60, 3, 67, 43]
+
+for num in nums:
+    print(num, is_prime(num))

@@ -1,0 +1,62 @@
+conversion = {
+    "I": 1,
+    "V": 5,
+    "X": 10,
+    "L": 50,
+    "C": 100,
+    "D": 500,
+    "M": 1000,
+}
+
+
+def convert(roman_numeral):
+    hindu_conversion = 0
+    for index, numeral in enumerate(roman_numeral):
+        try:
+            if conversion[numeral] >= conversion[roman_numeral[index + 1]]:
+                hindu_conversion += conversion[numeral]
+            else:
+                hindu_conversion -= conversion[numeral]
+        except:
+            hindu_conversion += conversion[numeral]
+    return hindu_conversion
+
+
+roman_numeral = input("Roman number: ")
+try:
+    for numeral in roman_numeral:
+        x = conversion[numeral]
+except:
+    print("You entered an invalid Roman numeral.")
+    exit()
+
+hindu_number = convert(roman_numeral)
+print(f"The corresponding Hindu-Arabic number is {hindu_number}.")
+
+test_cases = [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "XLIV",
+    "XXXVII",
+    "CI",
+    "IC",
+    "XCIX",
+    "CMLXVI",
+    "MDCI",
+]
+test_sols = [1, 2, 3, 4, 5, 44, 37, 101, 99, 99, 966, 1601]
+for index, test in enumerate(test_cases):
+    test_cases[index] = convert(test)
+
+if test_cases == test_sols:
+    print("Successful.")
+else:
+    for index, test in enumerate(test_cases):
+        if test != test_sols[index]:
+            print(f"Wrong submission at {index}")
+            print(
+                f"The program submitted {test}, the correct output is {test_sols[index]}."
+            )
